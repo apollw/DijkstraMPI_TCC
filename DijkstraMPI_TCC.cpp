@@ -12,7 +12,7 @@
 
 
 #define MAX_NOS 16384
-#define NUM_VERTICES /*256*/ /*512*/ /*1024*/ /*2048*/ /*4096*/ /*8192*/ 16384
+#define NUM_VERTICES 256 /*512*/ /*1024*/ /*2048*/ /*4096*/ /*8192*/ /*16384*/
 #define MIN_PESO 1
 #define MAX_PESO 20
 #define DIST_MAX INT_MAX
@@ -186,13 +186,13 @@ void dijkstraMPI(struct Grafo* grafo, int inicio) {
     // Atualizar as distâncias em cada processo usando MPI_Allreduce
     MPI_Allreduce(MPI_IN_PLACE, distancias, NUM_VERTICES, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
 
-    ////Exibir as distâncias mínimas a partir do processo 0
-    //if (rank == 0) {
-    //    printf("\nDistancias minimas a partir do vertice %d:\n", inicio);
-    //    for (int i = 0; i < NUM_VERTICES; i++) {
-    //        printf("Vertice %d: %d\n", i, distancias[i]);
-    //    }
-    //}
+    //Exibir as distâncias mínimas a partir do processo 0
+    if (rank == 0) {
+        printf("\nDistancias minimas a partir do vertice %d:\n", inicio);
+        for (int i = 0; i < NUM_VERTICES; i++) {
+            printf("Vertice %d: %d\n", i, distancias[i]);
+        }
+    }
 }
 
 void liberarGrafo(struct Grafo* grafo) {
@@ -235,13 +235,13 @@ int main(int argc, char* argv[]) {
     int numArestas = 0;
     int vertice_de_entrada = 0;
 
-    //const char* grafo256 = "D:\\Grafos\\grafo256.txt";
+    const char* grafo256 = "D:\\Grafos\\grafo256.txt";
     //const char* grafo512 = "D:\\Grafos\\grafo512.txt";
     //const char* grafo1024 = "D:\\Grafos\\grafo1024.txt";
     //const char* grafo2048 = "D:\\Grafos\\grafo2048.txt";
     //const char* grafo4096 = "D:\\Grafos\\grafo4096.txt";
     //const char* grafo8192 = "D:\\Grafos\\grafo8192.txt";
-    const char* grafo16384 = "D:\\Grafos\\grafo16384.txt";
+    //const char* grafo16384 = "D:\\Grafos\\grafo16384.txt";
 
     /*for (int i = 0; i < NUM_VERTICES; i++) {
         for (int j = i + 1; j < NUM_VERTICES; j++) {
@@ -265,7 +265,7 @@ int main(int argc, char* argv[]) {
     printf("Numero de Vertices = %d\n", NUM_VERTICES);
     printf("Numero de Arestas = %d\n", numArestas);
 
-    grafo = carregarGrafo(grafo16384);
+    grafo = carregarGrafo(grafo256);
 
     //imprimirGrafo(grafo);
 
